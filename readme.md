@@ -23,13 +23,13 @@ La Aplicación de Notas es una API desarrollada en Go, diseñada para gestionar 
 1. Clonar el repositorio:
 
 ```bash
-git clone <https://github.com/tu_usuario/aplicacion_de_notas.git>
+git clone https://github.com/ProtoSG/notes-app-api
 ```
 
 2. Navegar al directorio del proyecto:
 
 ```bash
-cd aplicacion_de_notas
+cd notes-app-api
 ```
 
 3. Instalar las dependencias:
@@ -43,9 +43,9 @@ go mod tidy
 Configurar las variables de entorno necesarias (por ejemplo, para la base de datos y JWT):
 
 ```bash
-export MONGO_URI=mongodb://localhost:27017
-export MONGO_DB_NAME=notas_db
-export JWT_SECRET_KEY=tu_secreto
+MONGO_URI=mongodb://localhost:27017
+MONGO_DB_NAME=notasApp
+JWT_SECRET_KEY=tu_secreto
 ```
 
 ## Uso
@@ -53,7 +53,7 @@ export JWT_SECRET_KEY=tu_secreto
 1. Ejecutar la aplicación:
 
 ```bash
-go run main.go
+go run cmd/main.go
 ```
 
 2. La API estará disponible en `http://localhost:8080`.
@@ -88,25 +88,33 @@ go run main.go
 aplicacion_de_notas/
 |-- cmd/
   ├── main.go
+  |-- adapters/
+  | ├── note.adapter.go
+  | ├── user.adapter.go
+  |
   ├── controllers/
-  │ ├── authController.go
-  │ ├── notesController.go
+  │ ├── auth.controller.go
+  │ ├── note.controller.go
   │
   ├── models/
-  │ ├── note.go
-  │ ├── user.go
+  │ ├── note.model.go
+  │ ├── user.model.go
   │
   ├── routes/
-  │ ├── authRoutes.go
-  │ ├── notesRoutes.go
+  │ ├── auth.routes.go
+  │ ├── notes.routes.go
   │
   ├── middleware/
-  │ ├── authMiddleware.go
+  │ ├── auth.middleware.go
   │
   ├── utils/
   │ ├── jwt.go
   │ ├── responses.go
+  | |-- server.go
   │
+  |-- db/
+  | ├── connection.go
+  |
   └── config/
     └── config.go
 ```
