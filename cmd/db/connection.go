@@ -11,10 +11,15 @@ import (
 
 var (
 	NotesCollection *mongo.Collection
+	UsersCollection *mongo.Collection
 )
 
 func InitNotesCollection(client *mongo.Client) *mongo.Collection {
 	return client.Database("notesApp").Collection("notes")
+}
+
+func InitUserCollection(client *mongo.Client) *mongo.Collection {
+	return client.Database("notesApp").Collection("users")
 }
 
 func InitMongoDB(url string) (*mongo.Client, error) {
@@ -42,4 +47,5 @@ func InitMongoDB(url string) (*mongo.Client, error) {
 
 func InitCollections(client *mongo.Client) {
 	NotesCollection = InitNotesCollection(client)
+	UsersCollection = InitUserCollection(client)
 }
