@@ -1,0 +1,13 @@
+http://localhost:8080/notes
+
+--include
+--silent
+
+GET 
+
+#POST 
+#{
+#  "contenido": "Nota 1",
+#  "titulo": "Nota 1"
+#}
+
