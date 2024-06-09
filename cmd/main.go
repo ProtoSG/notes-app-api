@@ -4,7 +4,7 @@ import (
 	"log"
 	"notes-app-api/cmd/config"
 	"notes-app-api/cmd/db"
-	"notes-app-api/cmd/utils"
+	"notes-app-api/cmd/server"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 
 	db.InitCollections(client)
 
-	server := utils.NewServer()
+	server := server.NewServer()
 
 	println("Server running on port 8080")
 	log.Fatal(server.ListenAndServe())

@@ -9,7 +9,7 @@ type Config struct {
 }
 
 func Load() *Config {
-	url := "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.6"
+	url := "mongodb://localhost:27017"
 	return &Config{
 		MongoURI: getEnv("MONGO_URI", url),
 	}

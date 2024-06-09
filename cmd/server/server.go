@@ -1,4 +1,4 @@
-package utils
+package server
 
 import (
 	"net/http"
@@ -10,9 +10,9 @@ type Server struct {
 }
 
 func NewServer() *Server {
-	routes.NotesRoutes()
+	router := routes.NewRoutes()
 
 	return &Server{
-		&http.Server{Addr: ":8080"},
+		&http.Server{Addr: ":8080", Handler: router},
 	}
 }

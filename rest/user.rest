@@ -1,4 +1,4 @@
-http://localhost:8080/notes
+http://localhost:8080/user
 
 --include
 --silent
@@ -9,11 +9,14 @@ Content-Type: application/json; charset=utf-8
 User-Agent: VRC
 #
 GET 
-#
+{
+  "username": "diego",
+  "password": "asd"
+}
 # POST 
 # {
-#   "contenido": "Nota 001",
-#   "titulo": "Nota 001"
+#   "username": "diego",
+#   "password": "asd"
 # }
 #
 #PUT /6664c47ec7cc107b41a26a14
