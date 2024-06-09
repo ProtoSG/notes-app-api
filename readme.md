@@ -85,7 +85,7 @@ go run cmd/main.go
 ## Estructura del Proyecto
 
 ```go
-aplicacion_de_notas/
+notes-app-api/
 |-- cmd/
   ├── main.go
   |-- adapters/
