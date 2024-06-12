@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"notes-app-api/cmd/db"
 	"notes-app-api/cmd/models"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -38,16 +39,26 @@ func GetNotes(w http.ResponseWriter, _ *http.Request) {
 	json.NewEncoder(w).Encode(notes)
 }
 
+func existNote(id int) bool {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	var note models.Note
+	err := db.NotesCollection.FindOne(ctx, bson.M{"_id": id}).Decode(&note)
+
+	if err != nil {
+		return false
+	}
+
+	return true
+}
+
 func CreateNote(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	var note models.Note
 	json.NewDecoder(r.Body).Decode(&note)
-
-	note.ID = primitive.NewObjectID()
-	note.CreatedAt = timeNow()
-	note.UpdatedAt = timeNow()
 
 	_, err := db.NotesCollection.InsertOne(ctx, note)
 	if err != nil {
@@ -66,17 +77,23 @@ func UpdateNote(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr := vars["id"]
 
-	id, er := primitive.ObjectIDFromHex(idStr)
+	id, er := strconv.Atoi(idStr)
 	if er != nil {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		return
 	}
 
+	// TODO: Crear en caso de que no se haya hecho antes, posibles problemas de internet
+	// exist := existNote(id)
+	//
+	// if !exist {
+	//
+	// }
+
 	var note models.Note
 	json.NewDecoder(r.Body).Decode(&note)
 
 	note.ID = id
-	note.UpdatedAt = timeNow()
 
 	filter := bson.M{"_id": id}
 	update := bson.M{"$set": note}

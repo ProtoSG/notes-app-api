@@ -19,6 +19,6 @@ func main() {
 
 	server := server.NewServer()
 
-	println("Server running on port 8080")
+  println("Server running on port http://localhost:8080")
 	log.Fatal(server.ListenAndServe())
 }
